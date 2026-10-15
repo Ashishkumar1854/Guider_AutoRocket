@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     openai_chat_model: str = "gpt-4o-mini"
     openai_embedding_model: str = "text-embedding-3-small"
 
+    # Used when a company's key is a Claude (Anthropic) key (starts with "sk-ant-"). Small and fast, like gpt-4o-mini.
+    claude_chat_model: str = "claude-haiku-5-5"
+
     jwt_secret: str = "your-secret-key"
 
     node_backend_url: str = "http://localhost:5000/api"

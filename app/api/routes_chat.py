@@ -22,10 +22,19 @@ def _classify_failure(exc: Exception) -> tuple[str, str]:
     """Map an unexpected exception to a (code, user-safe message). The raw text stays in the log."""
     name = type(exc).__name__
     text = str(exc).lower()
+    # An account with no credit left (OpenAI 429 "insufficient_quota", Claude "credit balance is too low"):
+    # waiting does not help, so it must not be reported as "busy".
+    if "insufficient_quota" in text or "credit balance" in text or "credit_balance" in text:
+        return "no_credits", "The AI account for your company has no credits left. Please contact your admin."
     if name == "RateLimitError" or "rate limit" in text or "429" in text:
         return "busy", "The assistant is busy right now. Please try again in a minute."
-    if name == "AuthenticationError" or "incorrect api key" in text or "invalid_api_key" in text:
-        return "no_key", "The OpenAI key for your company is not valid. Please contact your admin."
+    if (
+        name == "AuthenticationError"
+        or "incorrect api key" in text
+        or "invalid_api_key" in text
+        or "invalid x-api-key" in text
+    ):
+        return "no_key", "The AI key for your company is not valid. Please contact your admin."
     return "unavailable", "The assistant is not available right now. Please try again later."
 
 
