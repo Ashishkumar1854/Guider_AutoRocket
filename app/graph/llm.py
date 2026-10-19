@@ -24,7 +24,7 @@ def get_llm_for_tenant(api_key: str):
         return ChatAnthropic(
             model=settings.claude_chat_model,
             api_key=api_key.strip(),
-            temperature=0.2,
+            # no temperature: current Claude models reject it (HTTP 400 "`temperature` is deprecated for this model")
             streaming=True,
             max_tokens=1024,
         )
