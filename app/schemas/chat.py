@@ -28,4 +28,4 @@ class ChatResponse(BaseModel):
 
 class HealthResponse(BaseModel):
     status: Literal["ok"]
-    vector_store_backend: str
+    vector_store_backend: str | None = None

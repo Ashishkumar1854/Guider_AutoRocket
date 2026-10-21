@@ -25,7 +25,9 @@ class Settings(BaseSettings):
     knowledge_base_dir: str = "./knowledge_base"
     department_module_map_path: str = "./config/department_module_map.yaml"
 
-    app_env: str = "development"
+    # Production unless APP_ENV says otherwise: the demo login (/api/dev/*) and the test page work only in
+    # development / dev / local / test, so a missing APP_ENV can never leave them open.
+    app_env: str = "production"
     log_level: str = "INFO"
 
 
