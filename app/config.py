@@ -10,6 +10,9 @@ class Settings(BaseSettings):
     openai_chat_model: str = "gpt-4o-mini"
     openai_embedding_model: str = "text-embedding-3-small"
 
+    # Used when a company's key is a Claude (Anthropic) key (starts with "sk-ant-"). Small and fast, like gpt-4o-mini.
+    claude_chat_model: str = "claude-haiku-5-5"
+
     jwt_secret: str = "your-secret-key"
 
     node_backend_url: str = "http://localhost:5000/api"
@@ -22,7 +25,9 @@ class Settings(BaseSettings):
     knowledge_base_dir: str = "./knowledge_base"
     department_module_map_path: str = "./config/department_module_map.yaml"
 
-    app_env: str = "development"
+    # Production unless APP_ENV says otherwise: the demo login (/api/dev/*) and the test page work only in
+    # development / dev / local / test, so a missing APP_ENV can never leave them open.
+    app_env: str = "production"
     log_level: str = "INFO"
 
 

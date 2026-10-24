@@ -4,6 +4,7 @@ import time
 import jwt
 import pytest
 
+os.environ.setdefault("APP_ENV", "development")  # the demo-login test needs it; production is tested explicitly
 os.environ.setdefault("JWT_SECRET", "test-secret")
 os.environ.setdefault("DEPARTMENT_MODULE_MAP_PATH", "config/department_module_map.yaml")
 os.environ.setdefault("OPENAI_API_KEY", "test-key")
