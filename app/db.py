@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 import logging
-import os
+
+from app.config import get_settings
 
 logger = logging.getLogger("autorocket_ai_assistant.db")
 
@@ -20,7 +21,7 @@ async def get_pool():
     if not _ASYNCPG_AVAILABLE:
         raise RuntimeError("asyncpg is not installed. Run: pip install asyncpg")
     if _pool is None:
-        dsn = os.environ.get("DATABASE_URL")
+        dsn = get_settings().database_url
         if not dsn:
             raise RuntimeError("DATABASE_URL is not set in environment.")
         _pool = await asyncpg.create_pool(
